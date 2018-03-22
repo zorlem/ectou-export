@@ -42,7 +42,7 @@ Vagrant.configure(2) do |config|
     inline: "yum -y update --security && yum -y install gcc kernel-devel"
 end
 EOF
-vagrant up
+vagrant up --provider virtualbox
 vagrant halt
 
 # Reboot in case of kernel security updates above.
@@ -54,7 +54,8 @@ Vagrant.configure(2) do |config|
   config.ssh.insert_key = false
 end
 EOF
-vagrant up
+# bring up the machine so vagrant-vbguest can build and install VirtualBox guest additions
+vagrant up --provider virtualbox
 vagrant halt
 
 # Export box.
