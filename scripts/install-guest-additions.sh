@@ -17,7 +17,11 @@ name="$(basename "${outbox}" .box)-$$"
 vagrant plugin list | grep vagrant-vbguest || vagrant plugin install vagrant-vbguest
 
 # Create temporary vagrant directory.
-export VAGRANT_CWD="$(mktemp -d -t "${name}")"
+export VAGRANT_CWD=$(mktemp -q -d "${name}.XXXXXX" || mktemp -q -d -t "${name}.XXXXXX")
+if [ -z "${VAGRANT_CWD}" -o \! -d "${VAGRANT_CWD}" ]; then
+	echo "Could not create a temporary directory for Vagrant"
+	exit 1
+fi
 
 # Register base box.
 vagrant box add --name "${name}" "${box}"
