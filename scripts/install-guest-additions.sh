@@ -11,7 +11,7 @@ set -ex
 box="$1"
 outbox="$2"
 
-name="$(basename "${outbox}" .box)-$$"
+name="${box%-[0-9]*.box}-tempsetup"
 
 # Ensure vbguest plugin installed.
 vagrant plugin list | grep vagrant-vbguest || vagrant plugin install vagrant-vbguest
