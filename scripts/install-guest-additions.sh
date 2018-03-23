@@ -67,7 +67,7 @@ Vagrant.configure(2) do |config|
     inline: "yum -y autoremove kernel-devel && yum clean all"
   # Clean yum cache, fill the partition with zeroes, and clean bash history
   config.vm.provision :shell,
-    inline: ": > /root/.bash_history && history -c && dd if=/dev/zero of=/EMPTY bs=1M 2>&1 >/dev/null; rm -f /EMPTY && unset HISTFILE"
+    inline: ": > /root/.bash_history && history -c && dd if=/dev/zero of=/EMPTY bs=1M &>/dev/null; rm -f /EMPTY && unset HISTFILE"
 end
 EOF
 # bring up the machine so vagrant-vbguest can build and install VirtualBox guest additions
